@@ -1,5 +1,17 @@
 ﻿using System;
 using System.Text;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+//using System.Windows.Controls;
+//using System.Windows.Data;
+//using System.Windows.Documents;
+//using System.Windows.Input;
+//using System.Windows.Media;
+//using System.Windows.Media.Imaging;
+//using System.Windows.Navigation;
+//using System.Windows.Shapes;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
@@ -45,6 +57,10 @@ namespace MqttSubscriver
             while (true)
             {
                 //listen good!
+                if(Console.ReadKey().Key == ConsoleKey.T)
+                {
+                    client.Publish("test", Encoding.UTF8.GetBytes("Hello"));
+                }
             }
 
         }
