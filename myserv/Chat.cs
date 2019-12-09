@@ -22,16 +22,40 @@ namespace myserv
             {
                 if (Console.KeyAvailable)
                 {
-                    input = Console.ReadLine();
+                    try
+                    {
+                     input = Console.ReadLine();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Empty input");
+                    }
                     switch(input)
                     {
                         case "SUBSCRIBE":
-                            Console.WriteLine("Enter topic:");
-                            client.Subscribe(Console.ReadLine());
+                            String line;
+                            try
+                            {
+                                Console.WriteLine("Enter topic:");
+                                line = Console.ReadLine();
+                                if(line != null && line.Length > 0)
+                                    client.Subscribe(line);
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Empty input");
+                            }
                             break;
                         case "PUBLISH":
                             Console.WriteLine("Enter new topic:");
-                            topic = Console.ReadLine();
+                            try
+                            {
+                                topic = Console.ReadLine();
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Empty input");
+                            }
                             break;
                         default:
                             client.Publish(topic, input);

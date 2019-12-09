@@ -52,7 +52,10 @@ namespace myserv
 
         public void Publish(string topic, string message)
         {
-            client.Publish(topic, Encoding.UTF8.GetBytes(clientid + ": " + message));
+            if (topic == "users/all")
+                client.Publish(topic, Encoding.UTF8.GetBytes(message));
+            else
+                client.Publish(topic, Encoding.UTF8.GetBytes(clientid + ": " + message));
         }
         public void Listen()
         {
@@ -66,11 +69,20 @@ namespace myserv
             //}
         }
 
-        public static void ClientMqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+        public void ClientMqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
            //Console.WriteLine(sender);
             //Console.WriteLine(e.Topic);
-            Console.WriteLine(Encoding.UTF8.GetChars(e.Message));
+            if (e.Topic == "users/all")
+            {
+                Console.Write("New user connected to broker: ");
+                Console.WriteLine(Encoding.UTF8.GetChars(e.Message));
+                //Subscribe(Encoding.UTF8.GetChars(e.Message).ToString());
+                //Console.Write("Subscribed to new user: "); // reading other user messages
+                //Console.WriteLine(Encoding.UTF8.GetChars(e.Message));
+            }
+            else
+                Console.WriteLine(Encoding.UTF8.GetChars(e.Message));
         }
 
     }

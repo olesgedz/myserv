@@ -12,7 +12,8 @@ namespace myserv
         public static void Main(string[] args)
         {
             Console.WriteLine("Enter your login:");
-            var subscriber = new Client("farmer.cloudmqtt.com",11946, Console.ReadLine());
+            String   login = Console.ReadLine();
+            var subscriber = new Client("farmer.cloudmqtt.com",11946,login);
             subscriber.Connect();
             Chat chat = new Chat(ref subscriber);
             chat.Loop();
