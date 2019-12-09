@@ -10,10 +10,10 @@ namespace myserv
     public class Program
     {
         public static void Main(string[] args)
-        { 
-            var subscriber = new Client("farmer.cloudmqtt.com",11946, "Oles");
+        {
+            Console.WriteLine("Enter your login:");
+            var subscriber = new Client("farmer.cloudmqtt.com",11946, Console.ReadLine());
             subscriber.Connect();
-            subscriber.Subscribe("test");
             Chat chat = new Chat(ref subscriber);
             chat.Loop();
         }

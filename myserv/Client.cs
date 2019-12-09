@@ -40,6 +40,8 @@ namespace myserv
             client.Connect(clientid, user, pw);
             Subscribe("users/all");
             Publish("users/all", clientid);
+            Subscribe(clientid);
+
         }
         public void Subscribe(string topic)
         {
@@ -50,7 +52,7 @@ namespace myserv
 
         public void Publish(string topic, string message)
         {
-            client.Publish(topic, Encoding.UTF8.GetBytes(message));
+            client.Publish(topic, Encoding.UTF8.GetBytes(clientid + ": " + message));
         }
         public void Listen()
         {
@@ -66,9 +68,8 @@ namespace myserv
 
         public static void ClientMqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            Console.WriteLine("We received a message...");
-            Console.WriteLine(sender.ToString());
-            Console.WriteLine(e.Topic);
+           //Console.WriteLine(sender);
+            //Console.WriteLine(e.Topic);
             Console.WriteLine(Encoding.UTF8.GetChars(e.Message));
         }
 
