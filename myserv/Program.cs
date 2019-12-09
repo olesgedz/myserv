@@ -11,13 +11,11 @@ namespace myserv
     {
         public static void Main(string[] args)
         { 
-            var subscriber = new Client();
-            subscriber.Subscribe();
-           
+            var subscriber = new Client("farmer.cloudmqtt.com",11946, "Oles");
+            subscriber.Connect();
+            subscriber.Subscribe("test");
+            Chat chat = new Chat(ref subscriber);
+            chat.Loop();
         }
-
-      
-
-
     }
 }
